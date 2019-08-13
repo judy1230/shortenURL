@@ -13,11 +13,11 @@ module.exports =  passport => {
 				}).then((user,err) => {
 					if (err) { return done(err); }
 
-					if(!number){
+					if(user){
 					
-						return done(null, false, { message: '請輸入網址' }	)
+						return done(null, false, { message: '網頁已存在! 請再輸入一次!' }	)
 					}
-					return done(null, number)
+					//return done(null, number)
 					  
 
 				// 	bcrypt.compare(password, user.password, (err, isMatch) => {
@@ -32,8 +32,8 @@ module.exports =  passport => {
 				// })
 			})
 		})	
+  
 	)
-
 	
 	passport.serializeUser(function (user, done) {
 		done(null, user.id);

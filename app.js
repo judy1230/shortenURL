@@ -7,12 +7,12 @@ const mongoose = require('mongoose')
 const db = mongoose.connection
 const bodyParser = require('body-parser') 
 const urlShortener = require('./urlShortener')
-//const bcrypt = require('bcryptjs')
-// const session = require('express-session')
-// const passport = require('passport')
+const bcrypt = require('bcryptjs')
+const session = require('express-session')
+const passport = require('passport')
  const Urlbycrpt = require('./models/urlbycrpt')
-// const flash = require('connect-flash')
-// const authenticated  = require('./config/auth.js')
+const flash = require('connect-flash')
+const {authenticated}  = require('./config/auth.js')
 //require('./handlebars-helpers')
 
 
@@ -31,36 +31,39 @@ db.once('open', () => {
 	console.log('mongodb connected!')
 })
 
-// // 使用 express session 
-// app.use(session({
-// 	secret: 'aaaaaaaaaaaaaaa',
-// 	resave: 'false',
-// 	saveUninitialized: 'false'   // secret: 定義一組自己的私鑰（字串)
-// }))
-// // 使用 Passport 
-// app.use(passport.initialize())
-// app.use(passport.session())
+// 使用 express session 
+app.use(session({
+	secret: 'aaaaaaaaaaaaaaa',
+	resave: 'false',
+	saveUninitialized: 'false'   // secret: 定義一組自己的私鑰（字串)
+}))
+// 使用 Passport 
+app.use(passport.initialize())
+app.use(passport.session())
 
-// // 載入 Passport config
-// require('./config/passport')(passport)
+// 載入 Passport config
+require('./config/passport')(passport)
 
 
-// app.use(flash())
+app.use(flash())
 
-// app.use((req, res, next) => {
-// 	//res.locals.inputURL = req.body.orgURL
-// 	//res.locals.isAuthenticated = req.isAuthenticated()
-// 	res.locals.warning_msg = req.flash('warning_msg')
-// 	next()
-// })
+app.use((req, res, next) => {
+	//res.locals.inputURL = req.body.orgURL
+	//res.locals.isAuthenticated = req.isAuthenticated()
+	res.locals.warning_msg = req.flash('warning_msg')
+	next()
+})
 
 //localhost:2150 
 app.get('/', (req, res) => {
 	res.render('index')
 })
-app.post('/', (req, res, next) => {
-//console.log('req.body', req.body)	
 
+
+
+app.post('/shortenURL', authenticated, (req, res, next) => {
+//console.log('req.body', req.body)	
+  
 	let inputURL = req.body.orgURL
 	let number = ""
 	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
@@ -68,7 +71,7 @@ app.post('/', (req, res, next) => {
 		index = Math.floor(Math.random() * letters.length)
 	  number += letters[index]
 	}
-	//console.log('number', number)
+	
 
 	let bycrptURL =	`http://localhost:1250/${number}`
 

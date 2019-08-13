@@ -9,12 +9,7 @@ const urlbycrptSchema = new Schema({
 	number: {
 		type: String,
 		require: true
-	},
-	password: {
-		type: String,
-		require: true
 	}
-
 })
 
 module.exports = mongoose.model('Urlbycrpt', urlbycrptSchema)
