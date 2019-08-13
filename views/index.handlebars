@@ -1,0 +1,39 @@
+<nav class = "navbar navbar-dark bg-dark" >
+<p class="text-light text-xl-left font-weight-bold text-justify">URL Shortener</p>
+</nav>
+
+<div class="container py-5">
+	<div>
+		<h2 class="text-center font-weight-bold text-justify">URL Shortener</h2>
+	</div>
+	
+	<div class="p-3 text-center">
+		<div class="">	
+			<img class = "rounded img-fluid" style = "width: 200px; height:200px;"src="https://picsum.photos/id/513/4373/3280" alt='entrepreneur'>
+	  </div>
+	</div>	
+	{{!-- {{> messages}} --}}
+
+	<form method="POST" action="/">
+		<div class="p-2 text-center" >
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Input URL</label>
+				{{!-- {{#if number }} --}}
+				<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="ex:  google.com" rows="3"
+					name="orgURL"></textarea>
+        {{!-- {{/if}} --}}
+				{{!-- {{#if number}} --}}
+					<div class="border border-secondary rounded col-sm-6" style="height: 70px;">
+						<span></span> <code>{{ urlShortener }}</code>
+					</div>
+				{{!-- {{/if}} --}}
+			</div>
+			
+			
+
+			<div class="text-center">
+				<button class="btn btn-sm btn-info" data-toggle="popover" type="submit">Shorten!</button>
+			</div>
+		</div>
+  </form>
+</div>
