@@ -29,7 +29,7 @@ module.exports =  passport => {
 					
 					if (user.number != number) {
 			
-						return done(null, user.number)
+						return done(null, number)
 					}
 
 			})
