@@ -18,16 +18,20 @@
 		<div class="p-2 text-center" >
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Input URL</label>
-				{{!-- {{#if number }} --}}
-				<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="ex:  google.com" rows="3"
-					name="orgURL"></textarea>
-        {{!-- {{/if}} --}}
-				{{!-- {{#if number}} --}}
-					<div class="border border-secondary rounded col-sm-6" style="height: 70px;">
-						<span></span> <code>{{ urlShortener }}</code>
-					</div>
-				{{!-- {{/if}} --}}
+			  
+						
+						{{#if isAuthenticated}}
+						<div class="border border-secondary rounded col-sm-6" style="height: 70px;">
+							<span></span> <code>{{ urlShortener }}</code>
+						</div>
+						{{else}}	
+						<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="ex:  google.com" rows="3"
+							name="orgURL"></textarea>
+				   {{/if}}
+
 			</div>
+			
+
 			
 			
 

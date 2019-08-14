@@ -1,17 +1,33 @@
 module.exports = {
 	authenticated: (req, res, next) => {
-		console.log('req.body.orgURL:', req.body.orgURL)
-		if (req.body.orgURL) {
+		const passport = require('passport')
+		let inputURL = req.body.orgURL
+		let number = ""
+		const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+		for (let i = 0; i < 5; i++) {
+			index = Math.floor(Math.random() * letters.length)
+			number += letters[index]
+		}
+		passport.authenticate('local', {
+			successRedirect: '/shortenURL',
+			failureRedirect: '/',
+			failureFlash: true,
+		})
+		//req('warring_msg', [errors][messages][0])
+
+		if (req.isAuthenticated()) {
+			console.log('req.session', req.session)
 			return next()
 		}
-		// Urlbycrpt.findOne({ number: number }, (err, urlbycrpt) => {
-		// 	console.log('number', number)
-		// 	if (err) return console.error(err)
-		// 	req.flash('warning_msg', '網址已存在!')
-		// 	return res.redirect('/')
-		// })
+		// if (req.body.orgURL) {
+		// 	console.log('req.session', req.session)
+		// 	 return next()
+		// }
+		//console.log('req.session', req.session)
 		req.flash('warning_msg', '請填入網址!')
 		res.redirect('/')
-		
-	},
+	}	
+	// if(req.isAuthenticated()) {
+	// return next()
+
 }

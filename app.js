@@ -10,10 +10,10 @@ const urlShortener = require('./urlShortener')
 const bcrypt = require('bcryptjs')
 const session = require('express-session')
 const passport = require('passport')
- const Urlbycrpt = require('./models/urlbycrpt')
+const Urlbycrpt = require('./models/urlbycrpt')
 const flash = require('connect-flash')
 const {authenticated}  = require('./config/auth.js')
-//require('./handlebars-helpers')
+require('./handlebars-helpers')
 
 
 
@@ -48,8 +48,8 @@ require('./config/passport')(passport)
 app.use(flash())
 
 app.use((req, res, next) => {
-	//res.locals.inputURL = req.body.orgURL
-	//res.locals.isAuthenticated = req.isAuthenticated()
+//	res.locals.input = req.body.orgURL
+	res.locals.isAuthenticated = req.isAuthenticated()
 	res.locals.warning_msg = req.flash('warning_msg')
 	next()
 })
@@ -61,36 +61,40 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/shortenURL', authenticated, (req, res, next) => {
-//console.log('req.body', req.body)	
-  
-	let inputURL = req.body.orgURL
-	let number = ""
-	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-		for (let i = 0; i < 5; i++) {
-		index = Math.floor(Math.random() * letters.length)
-	  number += letters[index]
-	}
+app.post('/shortenURL' ,authenticated, (req, res) => {
+	console.log('req.session', req.session)
+			
+	// let inputURL = req.body.orgURL
+	// let number = ""
+	// const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+	// for (let i = 0; i < 5; i++) {
+	// 	index = Math.floor(Math.random() * letters.length)
+	// 	number += letters[index]
+	// }
+	// passport.authenticate('local', {
+	// 	successRedirect: '/shortenURL',
+	// 	failureRedirect: '/',
+	// 	failureFlash: true,
+	// })
+	// //req('warring_msg', [errors][messages][0])
 	
-
-	let bycrptURL =	`http://localhost:1250/${number}`
-
-	const shortenURL = new Urlbycrpt({
+	 let bycrptURL =	`http://localhost:1250/shortenURL/${number}`
+  
+	const urlbycrpt = new Urlbycrpt({
 		inputURL,
-		number
+		number, 
+		bycrptURL
 	})
-			shortenURL
-				.save()
-				.then(user => {
-					//console.log('shortenURL', shortenURL)
-					res.render('index', { urlShortener: bycrptURL})
-				})
-				.catch(err => console.log(err))
+	urlbycrpt
+		.save(err => {
+			if (err) return console.error(err)
+			return res.render('index')
+		})
 		
 	
 })
 
-app.get('/:id', (req, res) => {
+app.get('/shortenURL/:id', (req, res) => {
 
 	Urlbycrpt.findOne( {number : req.params.id} , (err, urlbycrpt) => {
 		if (err) return console.error(err)

@@ -1,35 +1,37 @@
 const LocalStrategy = require('passport-local').Strategy  // 載入 passport-local
 const mongoose = require('mongoose')
 //const bcrypt = require('bcryptjs')
-const User = require('../models/urlbycrpt.js')            
+const urlbycrpt = require('../models/urlbycrpt.js')            
     
 
 module.exports =  passport => {
 	passport.use(
 		new LocalStrategy(
-			{ usernameField: 'number' }, ( number, done) =>{
-				User.findOne({
-					number:number
+			{ usernameField: 'inputURL', passwordField: 'number', }, ( inputURL, number, done) =>{
+
+				//檢測沒有輸入網址
+        if (!inputURL){
+					return done(null, false, { message: '請輸入網址!' })
+				}
+
+				urlbycrpt.findOne({
+					number: number
 				}).then((user,err) => {
+					console.log('number in passport', number)
 					if (err) { return done(err); }
 
-					if(user){
-					
-						return done(null, false, { message: '網頁已存在! 請再輸入一次!' }	)
-					}
-					//return done(null, number)
-					  
-
-				// 	bcrypt.compare(password, user.password, (err, isMatch) => {
+          //驗證是否有相同的number
+					if (user.number == number){
 						
-				// 		if (err) throw err;
-				// 		if (isMatch) {
-				// 			return done(null, user)
-				// 		} else {
-				// 			return done(null, false, { message: '密碼不正確, 請重新輸入!' })
-				// 	}
+						return done(null, false, { message: '網頁已存在! 請再輸入一次!' }	)
+
+					}
 					
-				// })
+					if (user.number != number) {
+			
+						return done(null, user.number)
+					}
+
 			})
 		})	
   

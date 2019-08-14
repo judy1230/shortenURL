@@ -1,11 +1,12 @@
-const Handlebars = require('handlebars')
+// const Handlebars = require('handlebars')
 
-Handlebars.registerHelper('if', function (number, options) {
-	console.log('numberhandlebars', number)
-	if (!number) {
-		return options.fn(this);
-	 } 
-	else {
-	 	return options.inverse(this);
-	 }
-});
+// Handlebars.registerHelper('ifactive', function (number, options) {
+// 	console.log('numberhandlebars', this.inputURL)
+// 	if (this.inputURL = 'undefined') {
+// 		console.log('numberhandlebars', this.inputURL)
+		
+// 		return options.fn({ urlShortener: `${this.number}`})
+// 	}
+	
+
+// });
