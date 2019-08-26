@@ -19,8 +19,8 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Input URL</label>
 			  
-						
-						{{#if number}}
+					
+						{{#if isAuthenticated}}
 						<div class="border border-secondary rounded col-sm-6" style="height: 70px;">
 							<span></span> <code>{{ urlShortener }}</code>
 						</div>
@@ -28,7 +28,7 @@
 						<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="ex:  google.com" rows="3"
 							name="orgURL"></textarea>
 				   {{/if}}
-
+					
 			</div>
 			
 

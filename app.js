@@ -49,7 +49,7 @@ app.use(flash())
 
 app.use((req, res, next) => {
 	res.locals.user = req.user
-	res.locals.number = req.number
+	//res.locals.isAuthenticated = isAuthenticated()
 	console.log('res.locals.number', res.locals.number)
 	res.locals.warning_msg = req.flash('warning_msg')
 	next()
@@ -62,23 +62,49 @@ app.get('/', (req, res) => {
 
 
 
-app.post('/shortenURL' ,authenticated, (req, res) => {
-	//console.log('req.session', req.session)
-			
+app.post('/shortenURL' , (req, res) => {
+	console.log('req.session', req.session)
+	console.log('req', req.body)		
 	 let inputURL = req.body.orgURL
-	 let number = 1234
-	// let number = ""
-	// const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-	// for (let i = 0; i < 5; i++) {
-	// 	index = Math.floor(Math.random() * letters.length)
-	// 	number += letters[index]
-	// }
+	 //let number = req.number
+	console.log('inputURL', inputURL)
+	//console.log('NUMBER', number)
+	let number = ""
+	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+	for (let i = 0; i < 5; i++) {
+		index = Math.floor(Math.random() * letters.length)
+		number += letters[index]
+	}
 	// passport.authenticate('local', {
 	// 	successRedirect: '/shortenURL',
 	// 	failureRedirect: '/',
 	// 	failureFlash: true,
 	// })
 	// //req('warring_msg', [errors][messages][0])
+
+	Urlbycrpt.findOne({
+		number: number
+	}).then((user, err) => {
+		console.log('number in auth', number)
+		console.log(' user', user)
+		//console.log('number in user', user.number)
+		if (err) { return done(err); }
+
+		//驗證是否有相同的number
+		if (user) {
+
+			req.flash('warning_msg', '轉址重複, 請重新輸入!')
+			res.redirect('/')
+		}
+		// if (!user.inputURL) {
+
+		// 	return done(null, number)
+		// }
+
+		 else {
+		  isAuthenticated = true
+		 }
+	})
 	 
 	 let bycrptURL =	`http://localhost:1250/shortenURL/${number}`
 	console.log('bycrptURL', bycrptURL)
@@ -90,7 +116,7 @@ app.post('/shortenURL' ,authenticated, (req, res) => {
 	urlbycrpt
 		.save(err => {
 			if (err) return console.error(err)
-			return res.render('index')
+			return res.render('index', { urlShortener:bycrptURL, isAuthenticated : true})
 		})
 		
 	

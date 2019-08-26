@@ -42,15 +42,15 @@ module.exports = {
 			// }
 			
 			else{
-				return next(res.number)
+				return next()
 			}
 		})
 		// if (req.body.orgURL) {
 		// 	 return next()
 		// }
 		//console.log('req.session', req.session)
-		// req.flash('warning_msg', '請填入網址!')
-		// res.redirect('/')
+		req.flash('warning_msg', '請填入網址!')
+		res.redirect('/')
 	}	
 	// if(req.isAuthenticated()) {
 	// return next()

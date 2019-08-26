@@ -9,6 +9,10 @@ const urlbycrptSchema = new Schema({
 	number: {
 		type: String,
 		require: true
+	},
+	bycrptURL: {
+		type: String,
+		require: true
 	}
 })
 
