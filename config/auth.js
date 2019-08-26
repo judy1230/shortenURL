@@ -1,14 +1,15 @@
 module.exports = {
 	authenticated: (req, res, next) => {
-		const passport = require('passport')
-		const urlbycrpt = require('../models/urlbycrpt.js')  
-		let inputURL = req.body.orgURL
+		//const passport = require('passport')
+		const Urlbycrpt = require('../models/urlbycrpt.js')  
+		//let inputURL = req.body.orgURL
 		let number = ""
 		const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 		for (let i = 0; i < 5; i++) {
 			index = Math.floor(Math.random() * letters.length)
 			number += letters[index]
 		}
+		console.log('number', number)
 		// passport.authenticate('local', {
 		// 	successRedirect: '/shortenURL',
 		// 	failureRedirect: '/',
@@ -21,17 +22,18 @@ module.exports = {
 		// 	return next()
 		// }
 
-		urlbycrpt.findOne({
-			inputURL: inputURL
+		Urlbycrpt.findOne({
+			number: number
 		}).then((user, err) => {
 			console.log('number in auth', number)
-			console.log('number in user', user.number)
+			console.log('number in user', user)
+			//console.log('number in user', user.number)
 			if (err) { return done(err); }
 
 			//驗證是否有相同的number
-			if (user.number != number ) {
+			if (user) {
 
-				req.flash('warning_msg', '請填入網址!')
+				req.flash('warning_msg', '轉址重複, 請重新輸入!')
 				res.redirect('/')
 			}
 			// if (!user.inputURL) {
@@ -40,15 +42,15 @@ module.exports = {
 			// }
 			
 			else{
-				return next()
+				return next(res.number)
 			}
 		})
 		// if (req.body.orgURL) {
 		// 	 return next()
 		// }
 		//console.log('req.session', req.session)
-		req.flash('warning_msg', '請填入網址!')
-		res.redirect('/')
+		// req.flash('warning_msg', '請填入網址!')
+		// res.redirect('/')
 	}	
 	// if(req.isAuthenticated()) {
 	// return next()

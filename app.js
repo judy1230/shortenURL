@@ -48,8 +48,9 @@ require('./config/passport')(passport)
 app.use(flash())
 
 app.use((req, res, next) => {
-//	res.locals.input = req.body.orgURL
-	res.locals.isAuthenticated = req.isAuthenticated()
+	res.locals.user = req.user
+	res.locals.number = req.number
+	console.log('res.locals.number', res.locals.number)
 	res.locals.warning_msg = req.flash('warning_msg')
 	next()
 })
@@ -62,9 +63,10 @@ app.get('/', (req, res) => {
 
 
 app.post('/shortenURL' ,authenticated, (req, res) => {
-	console.log('req.session', req.session)
+	//console.log('req.session', req.session)
 			
-	// let inputURL = req.body.orgURL
+	 let inputURL = req.body.orgURL
+	 let number = 1234
 	// let number = ""
 	// const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
 	// for (let i = 0; i < 5; i++) {
@@ -77,9 +79,9 @@ app.post('/shortenURL' ,authenticated, (req, res) => {
 	// 	failureFlash: true,
 	// })
 	// //req('warring_msg', [errors][messages][0])
-	
+	 
 	 let bycrptURL =	`http://localhost:1250/shortenURL/${number}`
-  
+	console.log('bycrptURL', bycrptURL)
 	const urlbycrpt = new Urlbycrpt({
 		inputURL,
 		number, 
