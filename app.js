@@ -63,8 +63,8 @@ app.get('/', (req, res) => {
 
 
 app.post('/shortenURL' , (req, res) => {
-	console.log('req.session', req.session)
-	console.log('req', req.body)		
+	//console.log('req.session', req.session)
+	//console.log('req', req.body)		
 	 let inputURL = req.body.orgURL
 	 //let number = req.number
 	console.log('inputURL', inputURL)
@@ -75,6 +75,7 @@ app.post('/shortenURL' , (req, res) => {
 		index = Math.floor(Math.random() * letters.length)
 		number += letters[index]
 	}
+	
 	// passport.authenticate('local', {
 	// 	successRedirect: '/shortenURL',
 	// 	failureRedirect: '/',
@@ -92,32 +93,33 @@ app.post('/shortenURL' , (req, res) => {
 
 		//驗證是否有相同的number
 		if (user) {
-
-			req.flash('warning_msg', '轉址重複, 請重新輸入!')
+			console.log('轉址重複!重新建立位址!')
+			req.flash('warning_msg', '轉址重複!重新建立位址!!')
 			res.redirect('/')
 		}
-		// if (!user.inputURL) {
 
-		// 	return done(null, number)
-		// }
-
-		 else {
-		  isAuthenticated = true
+		if (!user) {
+			Authenticated = true
+			let bycrptURL = `http://localhost:1250/shortenURL/${number}`
+			console.log('bycrptURL', bycrptURL)
+			const urlbycrpt = new Urlbycrpt({
+				inputURL,
+				number,
+				bycrptURL
+			})
+			urlbycrpt
+				.save(err => {
+					if (err) return console.error(err)
+					return res.render('index', { urlShortener: bycrptURL, isAuthenticated: Authenticated })
+				})
+		 }
+		 else{
+			req.flash('warning_msg', '請填入網址!')
+			res.redirect('/')
 		 }
 	})
 	 
-	 let bycrptURL =	`http://localhost:1250/shortenURL/${number}`
-	console.log('bycrptURL', bycrptURL)
-	const urlbycrpt = new Urlbycrpt({
-		inputURL,
-		number, 
-		bycrptURL
-	})
-	urlbycrpt
-		.save(err => {
-			if (err) return console.error(err)
-			return res.render('index', { urlShortener:bycrptURL, isAuthenticated : true})
-		})
+	 
 		
 	
 })
