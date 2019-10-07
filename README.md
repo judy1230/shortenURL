@@ -7,7 +7,6 @@
 [~/] $ git clone 
 [~/] $ npm i express
 [~/] $ npm run dev
-connect to  MySQL Workbench,
 </pre></code>
 
 # Display
