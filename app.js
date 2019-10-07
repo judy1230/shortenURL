@@ -84,7 +84,7 @@ app.post('/shortenURL' , (req, res) => {
 		 }
 		 else{
 			req.flash('warning_msg', '請填入網址!')
-			res.redirect('/')
+			res.redirect('/shortenURL')
 		 }
 	})	 
 })
@@ -93,8 +93,7 @@ app.get('/shortenURL/:id', (req, res) => {
 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrL) => {
 		if (err) return console.error(err)
 		return res.redirect(`http://${shortenUrL.inputURL}`)
-	})
-		
+	})	
 })
 
 app.listen(process.env.PORT || port, () => {
