@@ -9,7 +9,10 @@ const session = require('express-session')
 const ShortenUrl = require('./models/shortenUrl')
 const flash = require('connect-flash')
 const port = 1250
-
+// 判別開發環境
+if (process.env.NODE_ENV !== 'production') {      // 如果不是 production 模式
+	require('dotenv').config()                      // 使用 dotenv 讀取 .env 檔案
+}
 
 //set template engine
 app.engine('handlebars', exphbs({ defaultLayout:'main'}))
@@ -82,14 +85,10 @@ app.post('/' , (req, res) => {
 						return res.render('index', { urlShortener: shortenURL, isAuthenticated: Authenticated })
 					})
 			}
-			// else {
-			// 	req.flash('warning_msg', '請填入網址!')
-			// 	res.redirect('/')
-			// }
 		})	 
 })
 
-app.get('/shortenURL/:id', (req, res) => {
+app.get('http://localhost:1250/shortenURL/:id', (req, res) => {
 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
 		console.log('shortenURL', shortenUrl)
 		if (err) return console.error(err)
@@ -98,5 +97,6 @@ app.get('/shortenURL/:id', (req, res) => {
 })
 
 app.listen(process.env.PORT || port, () => {
-	console.log(`This server is running on http://localhost:${port}`)
+	//console.log(`This server is running on http://localhost:${port}`)
+	console.log(`This server is running on http://localhost:${process.env.PORT}`)
 })
