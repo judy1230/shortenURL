@@ -88,14 +88,6 @@ app.post('/Shorten' , (req, res) => {
 		})	 
 })
 
-// app.get(`/:id`, (req, res) => {
-// 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
-// 		console.log('shortenURL.inputURL', shortenUrl.inputURL)
-// 		if (err) return console.error(err)
-// 		return res.redirect(`http://www.${shortenUrl.inputURL}`)
-// 	})	
-// })
-
 app.listen(process.env.PORT || port, () => {
 	//console.log(`This server is running on http://localhost:${port}`)
 	console.log(`This server is running on http://localhost:${process.env.PORT}`)

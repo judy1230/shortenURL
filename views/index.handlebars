@@ -2,22 +2,18 @@
 <p class="text-light text-xl-left font-weight-bold text-justify">URL Shortener</p>
 </nav>
 
-<div class="container py-5">
+<div class="p-5 w-70 text-center">
 	<div>
 		<h2 class="text-center font-weight-bold text-justify">URL Shortener</h2>
-	</div>
-	
+	</div>	
 	<div class="p-3 text-center">
 		<div class="">	
 			<img class = "rounded img-fluid" style = "width: 200px; height:200px;"src="https://upload.cc/i1/2019/09/30/7QAYl3.png" alt='entrepreneur'>
 	  </div>
 	</div>	
 	{{> messages}}
-
-	
 	<div class="p-2 text-center" >
 		<div class="form-group">
-		
 	  	{{#if isAuthenticated}}
 		    <label for="exampleFormControlTextarea1">Shortened URL</label>
 			  <div class="border border-secondary rounded " style="height: 70px;">
@@ -29,7 +25,7 @@
 				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Return</button>
 			    </div>
 				</form>
-			  {{else}}		
+			 {{else}}		
 				<form method="POST" action="/Shorten">
 			    <label for="exampleFormControlTextarea1">Input URL</label>
 			    <input type="text" class="form-control text-left" style="height:70px;"id="teatarea" placeholder="ex: google.com"
@@ -38,9 +34,7 @@
 				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Shorten!</button>
 			    </div> 
 				</form>
-			  {{/if}}
-		
+			{{/if}}	
 		</div>  
-	</div>
-  
+	</div>  
 </div>
