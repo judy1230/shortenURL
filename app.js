@@ -82,17 +82,18 @@ app.post('/' , (req, res) => {
 						return res.render('index', { urlShortener: shortenURL, isAuthenticated: Authenticated })
 					})
 			}
-			else {
-				req.flash('warning_msg', '請填入網址!')
-				res.redirect('/')
-			}
+			// else {
+			// 	req.flash('warning_msg', '請填入網址!')
+			// 	res.redirect('/')
+			// }
 		})	 
 })
 
 app.get('/shortenURL/:id', (req, res) => {
-	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrL) => {
+	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
+		console.log('shortenURL', shortenUrl)
 		if (err) return console.error(err)
-		return res.redirect(`http://${shortenUrL.inputURL}`)
+		return res.redirect(`http://${shortenUrl.inputURL}`)
 	})	
 })
 
