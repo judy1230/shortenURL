@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 	res.render('index')
 })
 
-app.post('/' , (req, res) => {		
+app.post('/Shorten' , (req, res) => {		
 	let inputURL = req.body.orgURL
 	let number =""
 	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
@@ -73,7 +73,7 @@ app.post('/' , (req, res) => {
 			}
 			if (!url) {
 				Authenticated = true
-				let shortenURL = `http://localhost:${process.env.PORT}/shortenURL/${number}`
+				let shortenURL = `http://localhost:${port || process.env.PORT }/${number}`
 				const shortenUrl = new ShortenUrl({
 					inputURL,
 					number,
@@ -88,7 +88,7 @@ app.post('/' , (req, res) => {
 		})	 
 })
 
-app.get(`/shortenURL/:id`, (req, res) => {
+app.get(`/:id`, (req, res) => {
 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
 		console.log('shortenURL.inputURL', shortenUrl.inputURL)
 		if (err) return console.error(err)

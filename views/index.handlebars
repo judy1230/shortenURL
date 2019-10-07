@@ -17,29 +17,29 @@
 	
 	<div class="p-2 text-center" >
 		<div class="form-group">
-		<form method="POST" action="/">
+		
 	  	{{#if isAuthenticated}}
 		    <label for="exampleFormControlTextarea1">Shortened URL</label>
 			  <div class="border border-secondary rounded " style="height: 70px;">
-					<span>Link Shortening Successful! Visit your website at</span>
-					<form method="POST" action="/shortenURL">
-					  <a href="{{ urlShortener }}">{{{ urlShortener }}}</a>
-					</form>
+					<span>Link Shortening Successful! Visit your website at</span>		
+				 <a href="{{ urlShortener }}">{{{ urlShortener }}}<a>
 			  </div>
+				<form method="GET" action="/">
 			    <div class="text-center">
 				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Return</button>
 			    </div>
-			  {{else}}				
-			  <label for="exampleFormControlTextarea1">Input URL</label>
-			  <input type="text" class="form-control text-left" style="height:70px;"id="teatarea" placeholder="ex: google.com"
+				</form>
+			  {{else}}		
+				<form method="POST" action="/Shorten">
+			    <label for="exampleFormControlTextarea1">Input URL</label>
+			    <input type="text" class="form-control text-left" style="height:70px;"id="teatarea" placeholder="ex: google.com"
 				  name="orgURL" value="{{orgURL}}">
-			  </textarea> 
-			  
 			    <div class="text-center">
 				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Shorten!</button>
-			    </div>  
+			    </div> 
+				</form>
 			  {{/if}}
-			</form>
+		
 		</div>  
 	</div>
   
