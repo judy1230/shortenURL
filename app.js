@@ -16,7 +16,7 @@ const flash = require('connect-flash')
 app.engine('handlebars', exphbs({ defaultLayout:'main'}))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
-mongoose.connect('mongodb://localhost/shortenUrl', { useNewUrlParser: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/shortenUrl', { useNewUrlParser: true, useCreateIndex: true })
 
 db.on('error', () => {
 	console.log('mongodb error!')
@@ -97,6 +97,6 @@ app.get('/shortenURL/:id', (req, res) => {
 		
 })
 
-app.listen(process.env.Port || port, () => {
+app.listen(process.env.PORT || port, () => {
 	console.log(`This server is running on http://localhost:${port}`)
 })
