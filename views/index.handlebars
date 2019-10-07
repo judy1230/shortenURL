@@ -9,35 +9,36 @@
 	
 	<div class="p-3 text-center">
 		<div class="">	
-			<img class = "rounded img-fluid" style = "width: 200px; height:200px;"src="https://picsum.photos/id/513/4373/3280" alt='entrepreneur'>
+			<img class = "rounded img-fluid" style = "width: 200px; height:200px;"src="https://upload.cc/i1/2019/09/30/7QAYl3.png" alt='entrepreneur'>
 	  </div>
 	</div>	
 	{{> messages}}
 
-	<form method="POST" action="/shortenUrl">
-		<div class="p-2 text-center" >
-			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Input URL</label>
+	
+	<div class="p-2 text-center" >
+		<div class="form-group">
+		<form method="POST" action="/shortenUrl">
+	  	{{#if isAuthenticated}}
+		    <label for="exampleFormControlTextarea1">Shortened URL</label>
+			  <div class="border border-secondary rounded " style="height: 70px;">
+					<span>Link Shortening Successful! Visit your website at</span>
+				  <a href="{{ urlShortener }}">{{{ urlShortener }}}</a>
+			  </div>
+			    <div class="text-center">
+				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Return</button>
+			    </div>
+			  {{else}}				
+			  <label for="exampleFormControlTextarea1">Input URL</label>
+			  <input type="text" class="form-control text-left" style="height:70px;"id="teatarea" placeholder="ex: google.com"
+				  name="orgURL" value="{{orgURL}}">
+			  </textarea> 
 			  
-					
-						{{#if isAuthenticated}}
-						<div class="border border-secondary rounded col-sm-12" style="height: 70px;">
-							<span></span> <code>{{ urlShortener }}</code>
-						</div>
-						{{else}}	
-						<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="ex:  google.com" rows="3"
-							name="orgURL"></textarea>
-				   {{/if}}
-					
-			</div>
-			
-
-			
-			
-
-			<div class="text-center">
-				<button class="btn btn-sm btn-info" data-toggle="popover" type="submit">Shorten!</button>
-			</div>
-		</div>
-  </form>
+			    <div class="text-center">
+				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Shorten!</button>
+			    </div>  
+			  {{/if}}
+			</form>
+		</div>  
+	</div>
+  
 </div>

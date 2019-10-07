@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const urlbycrptSchema = new Schema({
+const shortenUrlSchema = new Schema({
 	inputURL: {
 		type: String,
 		require: true
@@ -10,10 +10,10 @@ const urlbycrptSchema = new Schema({
 		type: String,
 		require: true
 	},
-	bycrptURL: {
+	shortenURL: {
 		type: String,
 		require: true
 	}
 })
 
-module.exports = mongoose.model('Urlbycrpt', urlbycrptSchema)
+module.exports = mongoose.model('shortenUrl', shortenUrlSchema)
