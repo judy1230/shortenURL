@@ -82,19 +82,19 @@ app.post('/Shorten' , (req, res) => {
 				shortenUrl
 					.save(err => {
 						if (err) return console.error(err)
-						return res.render('index', { urlShortener: shortenURL, isAuthenticated: Authenticated })
+						return res.render('index', { urlShortener: shortenURL,inputURL:`www.${inputURL}`, isAuthenticated: Authenticated })
 					})
 			}
 		})	 
 })
 
-app.get(`/:id`, (req, res) => {
-	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
-		console.log('shortenURL.inputURL', shortenUrl.inputURL)
-		if (err) return console.error(err)
-		return res.redirect(`http://${shortenUrl.inputURL}`)
-	})	
-})
+// app.get(`/:id`, (req, res) => {
+// 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
+// 		console.log('shortenURL.inputURL', shortenUrl.inputURL)
+// 		if (err) return console.error(err)
+// 		return res.redirect(`http://www.${shortenUrl.inputURL}`)
+// 	})	
+// })
 
 app.listen(process.env.PORT || port, () => {
 	//console.log(`This server is running on http://localhost:${port}`)
