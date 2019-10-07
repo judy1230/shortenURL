@@ -22,7 +22,9 @@
 		    <label for="exampleFormControlTextarea1">Shortened URL</label>
 			  <div class="border border-secondary rounded " style="height: 70px;">
 					<span>Link Shortening Successful! Visit your website at</span>
-				  <a href="{{ urlShortener }}">{{{ urlShortener }}}</a>
+					<form method="POST" action="/shortenURL">
+					  <a href="{{ urlShortener }}">{{{ urlShortener }}}</a>
+					</form>
 			  </div>
 			    <div class="text-center">
 				    <button class="btn btn-sm btn-info mt-2" data-toggle="popover" type="submit">Return</button>

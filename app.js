@@ -30,9 +30,9 @@ db.once('open', () => {
 
 // 使用 express session 
 app.use(session({
-	secret: 'aaaaaaaaaaaaaaa',
+	secret: 'blackmoon',
 	resave: 'false',
-	saveUninitialized: 'false'   // secret: 定義一組自己的私鑰（字串)
+	saveUninitialized: 'false',	
 }))
 
 app.use(flash())
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 	next()
 })
 
-//localhost:2150 
+//localhost:1250
 app.get('/', (req, res) => {
 	res.render('index')
 })
@@ -73,7 +73,7 @@ app.post('/' , (req, res) => {
 			}
 			if (!url) {
 				Authenticated = true
-				let shortenURL = `http://localhost:1250/shortenURL/${number}`
+				let shortenURL = `http://localhost:${process.env.PORT}/shortenURL/${number}`
 				const shortenUrl = new ShortenUrl({
 					inputURL,
 					number,
@@ -88,9 +88,9 @@ app.post('/' , (req, res) => {
 		})	 
 })
 
-app.get('http://localhost:1250/shortenURL/:id', (req, res) => {
+app.get(`/shortenURL/:id`, (req, res) => {
 	ShortenUrl.findOne( {number : req.params.id} , (err, shortenUrl) => {
-		console.log('shortenURL', shortenUrl)
+		console.log('shortenURL.inputURL', shortenUrl.inputURL)
 		if (err) return console.error(err)
 		return res.redirect(`http://${shortenUrl.inputURL}`)
 	})	
