@@ -4,7 +4,7 @@
 
 # Getting Start
 <pre><code>
-[~/] $ git clone 
+[~/] $ git clone https://github.com/judy1230/shortenURL.git
 [~/] $ npm i express
 [~/] $ npm run dev
 </pre></code>
