@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
 	res.render('index')
 })
 
-app.post('/shortenURL' , (req, res) => {		
+app.post('/' , (req, res) => {		
 	let inputURL = req.body.orgURL
 	let number =""
 	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
@@ -84,7 +84,7 @@ app.post('/shortenURL' , (req, res) => {
 		 }
 		 else{
 			req.flash('warning_msg', '請填入網址!')
-			res.redirect('/shortenURL')
+			res.redirect('/')
 		 }
 	})	 
 })
