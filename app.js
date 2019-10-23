@@ -73,7 +73,7 @@ app.post('/Shorten' , (req, res) => {
 			}
 			if (!url) {
 				Authenticated = true
-				let shortenURL = `http://localhost:${port || process.env.PORT }/${number}`
+				let shortenURL = `https://pure-waters-66922.herokuapp.com/${number}`
 				const shortenUrl = new ShortenUrl({
 					inputURL,
 					number,
